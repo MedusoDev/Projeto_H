@@ -25,6 +25,10 @@ define gui.show_name = True
 
 define config.version = "1.0"
 
+## Modo desenvolvedor: ativa o menu Shift+D com ferramentas como
+## o Image Location Picker. Mude para False antes de distribuir o jogo.
+define config.developer = True
+
 
 ## Texto que é colocado na tela "Sobre" do jogo. Coloque o texto entre aspas
 ## triplas e deixe uma linha em branco entre os parágrafos.
