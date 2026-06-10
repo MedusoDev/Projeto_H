@@ -1,4 +1,4 @@
 ## ---------- Início ----------
 
 label start:
-    jump cena_quarto
+    call screen quarto

@@ -218,7 +218,7 @@ style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
-    ypos 270
+    ypos 208
     yanchor 0.5
 
     spacing gui.choice_spacing
@@ -384,17 +384,17 @@ style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
 
 style main_menu_frame:
-    xsize 280
+    xsize 182
     yfill True
 
     background "gui/overlay/main_menu.png"
 
 style main_menu_vbox:
     xalign 1.0
-    xoffset -20
-    xmaximum 800
+    xoffset -13
+    xmaximum 520
     yalign 1.0
-    yoffset -20
+    yoffset -13
 
 style main_menu_text:
     properties gui.text_properties("main_menu", accent=True)
@@ -501,42 +501,42 @@ style return_button is navigation_button
 style return_button_text is navigation_button_text
 
 style game_menu_outer_frame:
-    bottom_padding 30
-    top_padding 120
+    bottom_padding 23
+    top_padding 92
 
     background "gui/overlay/game_menu.png"
 
 style game_menu_navigation_frame:
-    xsize 280
+    xsize 182
     yfill True
 
 style game_menu_content_frame:
-    left_margin 40
-    right_margin 20
-    top_margin 10
+    left_margin 26
+    right_margin 13
+    top_margin 8
 
 style game_menu_viewport:
-    xsize 920
+    xsize 598
 
 style game_menu_vscrollbar:
     unscrollable gui.unscrollable
 
 style game_menu_side:
-    spacing 10
+    spacing 7
 
 style game_menu_label:
-    xpos 50
-    ysize 120
+    xpos 33
+    ysize 92
 
 style game_menu_label_text:
-    size 50
+    size 38
     color gui.accent_color
     yalign 0.5
 
 style return_button:
     xpos gui.navigation_xpos
     yalign 1.0
-    yoffset -30
+    yoffset -23
 
 
 ## Sobre a tela ################################################################
@@ -847,7 +847,7 @@ style pref_label_text:
     yalign 1.0
 
 style pref_vbox:
-    xsize 225
+    xsize 146
 
 style radio_vbox:
     spacing gui.pref_button_spacing
@@ -870,7 +870,7 @@ style check_button_text:
     properties gui.text_properties("check_button")
 
 style slider_slider:
-    xsize 350
+    xsize 228
 
 style slider_button:
     properties gui.button_properties("slider_button")
@@ -881,7 +881,7 @@ style slider_button_text:
     properties gui.text_properties("slider_button")
 
 style slider_vbox:
-    xsize 450
+    xsize 293
 
 
 ## Tela de histórico ###########################################################
@@ -1126,8 +1126,8 @@ style help_button_text:
     properties gui.text_properties("help_button")
 
 style help_label:
-    xsize 250
-    right_padding 20
+    xsize 163
+    right_padding 13
 
 style help_label_text:
     size gui.text_size
