@@ -1,7 +1,8 @@
 ## ---------- Personagens ----------
 
-## Jogador — professor estagiário (nome inserido pelo próprio jogador)
-define jogador = Character("[nome_jogador]", color="#e0e0ff")
+## Jogador — nome inserido pelo jogador na tela de nome
+define jogador     = Character("[nome_jogador]", color="#e0e0ff")
+define pensamento  = Character(None, what_italic=True, what_color="#b0b0c8")
 
 ## -----------------------------------------------------------------------
 ## Kimiko — centopeia mágica
