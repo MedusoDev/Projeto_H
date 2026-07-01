@@ -1,8 +1,48 @@
 ## ---------- Personagens ----------
 
 ## Jogador — nome inserido pelo jogador na tela de nome
-define jogador     = Character("[nome_jogador]", color="#e0e0ff")
+## image="protagonista" liga este Character ao layeredimage abaixo, permitindo
+## a forma curta `jogador neutral talk "Frase."` para trocar a expressão e
+## falar na mesma linha (mostra o sprite automaticamente se ainda não estiver em cena).
+define jogador     = Character("[nome_jogador]", color="#e0e0ff", image="protagonista")
 define pensamento  = Character(None, what_italic=True, what_color="#b0b0c8")
+
+## -----------------------------------------------------------------------
+## Protagonista — sprite em camadas (base + expressões avulsas)
+## Sprites: images/personagens/protagonista/
+## base.png tem o rosto em branco; eyebrows_*/mouth_*/sweat.png encaixam por cima,
+## todos no mesmo canvas (sem necessidade de offset).
+## -----------------------------------------------------------------------
+
+layeredimage protagonista:
+    always:
+        "images/personagens/protagonista/base.png"
+
+    group eyebrows:
+        attribute neutral default:
+            "images/personagens/protagonista/eyebrows_neutral.png"
+        attribute sad:
+            "images/personagens/protagonista/eyebrows_sad.png"
+        attribute angry:
+            "images/personagens/protagonista/eyebrows_angry.png"
+        attribute huh:
+            "images/personagens/protagonista/eyebrows_huh.png"
+
+    group mouth:
+        attribute talk default:
+            "images/personagens/protagonista/mouth_talk.png"
+        attribute frown:
+            "images/personagens/protagonista/mouth_frown.png"
+
+    ## Acessório opcional — sem "default", só aparece se for pedido (ex: "show protagonista sweat")
+    group sweat:
+        attribute sweat:
+            "images/personagens/protagonista/sweat.png"
+
+## Mesmo padrão de tamanho usado em kimiko/moria (ysize=600).
+## Usar com "at protagonista_size, <posicao>".
+transform protagonista_size:
+    ysize 600
 
 ## -----------------------------------------------------------------------
 ## Kimiko — centopeia mágica

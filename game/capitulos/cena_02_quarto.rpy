@@ -108,10 +108,16 @@ label cena_02_quarto:
     scene bg quarto_day
     with fade
 
-    ## TODO: show sprite protagonista expressão sonolenta quando disponível
+    show protagonista angry talk at protagonista_size, center
+    with dissolve
 
     jogador "Esse maldito sonho de novo..."
+
+    show protagonista neutral talk
     jogador "...Bom dia, ao menos espero que ele seja bom."
+
+    hide protagonista
+    with dissolve
 
 
 label .loop:
@@ -143,18 +149,24 @@ label .loop:
 
 label .gaveta1:
     ## Varinha aparece saindo da gaveta — TODO: show sprite varinha
+    show protagonista neutral talk at protagonista_size, center
     jogador "Minha varinha. Única coisa que eu trouxe da escola que definitivamente não vai me trair."
+    hide protagonista
     pensamento "...Espero."
     jump cena_02_quarto.loop
 
 label .cama:
+    show protagonista angry talk at protagonista_size, center
     jogador "Acabei de acordar, agora não."
+    hide protagonista
     pensamento "Eu sei o que você tá pensando e a resposta é não."
     jump cena_02_quarto.loop
 
 label .computador:
     ## Agenda do dia — crítico: lista as tarefas que serão rastreadas no mapa
+    show protagonista neutral talk at protagonista_size, center
     jogador "Certo. Só isso. Eu consigo."
+    hide protagonista
     ## TODO: implementar screen de UI com lista de tarefas quando o mapa for feito
     jump cena_02_quarto.loop
 
@@ -165,20 +177,28 @@ label .quadro:
     jump cena_02_quarto.loop
 
 label .celular:
+    show protagonista sad talk at protagonista_size, center
     jogador "Nenhuma mensagem."
+    hide protagonista
     jump cena_02_quarto.loop
 
 label .abajur:
+    show protagonista neutral talk at protagonista_size, center
     jogador "Comprei esse abajur porque tava barato. Não combina com nada no quarto mas não vou admitir isso pra ninguém."
+    hide protagonista
     jump cena_02_quarto.loop
 
 label .relogio:
+    show protagonista angry talk at protagonista_size, center
     jogador "Já fez o suficiente. Pode parar agora."
+    hide protagonista
     jump cena_02_quarto.loop
 
 label .gaveta2:
     ## Encerra a exploração — avança para Cena 03
+    show protagonista neutral talk at protagonista_size, center
     jogador "Roupas. Certo."
+    hide protagonista
     pensamento "Pronto."
     ## jump cena_03_ligacao
     ## Cena 03 ainda não implementada — retorna ao menu por enquanto

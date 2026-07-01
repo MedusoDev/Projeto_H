@@ -68,7 +68,16 @@ label introducao_inicio:
     show anqian happysmile
     kimiko "Eu sou a Kimiko. Centopeia mágica — muito prazer!"
 
+    show anqian happysmile at right
+    with move
+
+    show protagonista huh talk at protagonista_size, center
+    with dissolve
+
     jogador "Centopeia? Nunca trabalhei com uma antes."
+
+    hide protagonista
+    with dissolve
 
     show anqian neutraltalk
     kimiko "Sério? E com que tipo de criatura você trabalhou antes de vir pra cá?"
@@ -117,8 +126,7 @@ label introducao_inicio:
 
     "A porta volta a ranger."
 
-    show anqian happytalk at right
-    with move
+    show anqian happytalk
 
     show lindan neutral at left
     with dissolve
@@ -189,7 +197,10 @@ label introducao_inicio:
     show anqian happytalk
     kimiko "Claro que era, Moria!"
 
+    show protagonista huh talk at protagonista_size, center
     jogador "Vocês duas se conhecem há muito tempo?"
+
+    hide protagonista
 
     show lindan neutraltalk
     moria "Dois anos."
@@ -212,7 +223,10 @@ label introducao_inicio:
     show anqian happytalkclosed
     kimiko "Estou brincando! Metade do tempo."
 
+    show protagonista neutral talk at protagonista_size, center
     jogador "É bom ver que vocês se entendem bem."
+
+    hide protagonista
 
     show lindan neutraltalk
     moria "Nos toleramos bem."
