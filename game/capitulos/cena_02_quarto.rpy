@@ -42,6 +42,23 @@ screen quarto_exploracao(coletados):
         style      "quarto_hs"
         xpos 0 ypos 0
         action Return("foto")
+    imagebutton:
+        idle       Null(width=1280, height=720)
+        hover      "hs_fixo_bed_hover"
+        focus_mask "hs_fixo_bed"
+        keyboard_focus False
+        style      "quarto_hs"
+        xpos 0 ypos 0
+        action Return("bed")
+    imagebutton:
+        idle       Null(width=1280, height=720)
+        hover      "hs_fixo_stone_hover"
+        focus_mask "hs_fixo_stone"
+        keyboard_focus False
+        style      "quarto_hs"
+        xpos 0 ypos 0
+        action Return("stone")
+
 
     ## -- Coletáveis: somem depois de usados --
     for item in quarto_coletaveis:
@@ -87,6 +104,10 @@ label .loop:
         jump .losa
     elif _return == "foto":
         jump .foto
+    elif _return == "bed":
+        jump .bed
+    elif _return == "stone":
+        jump .stone
     elif _return in coletados:
         jump .item_coletado
     else:
@@ -100,6 +121,29 @@ label .losa:
     jogador "Enfim, depois eu limpo."
     jogador "Pera..."
     jogador "...Pet invisível?"
+    hide protagonista
+    with dissolve
+    jump .loop
+
+label .bed:
+    show protagonista neutral talk at protagonista_size, center
+    with dissolve
+    jogador "Eu devia arrumar a cama minha mãe vai impli..."
+    show protagonista sad talk at protagonista_size, center
+    with dissolve 
+    jogador "..ah"
+    jogador "Deixa.."
+    hide protagonista
+    with dissolve
+    jump .loop
+
+label .stone:
+    show protagonista arms_pensativo  talk at protagonista_size, center
+    with dissolve
+    jogador "hum."
+    jogador "hum.."
+    jogador "hum..."
+    jogador "Pedra"
     hide protagonista
     with dissolve
     jump .loop
