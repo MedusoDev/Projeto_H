@@ -7,6 +7,15 @@
 define jogador     = Character("[nome_jogador]", color="#e0e0ff", image="protagonista")
 define pensamento  = Character(None, what_italic=True, what_color="#b0b0c8")
 
+## Ser misterioso — contato na Cena 01 (Pesadelo). Sem sprite, só voz.
+## Nome = bloco glitch de 7 chars animado (tag {glitch=N}, ver glitch.rpy).
+## Falas em vermelho (what_color).
+define ser        = Character("{glitch=7}", what_color="#e02020")
+
+## Igual, mas usado nas linhas em que a fala do ser também é corrompida
+## (embaralhada com a tag {glitch=N} dentro do próprio texto).
+define ser_glitch = Character("{glitch=7}", what_color="#e02020")
+
 ## -----------------------------------------------------------------------
 ## Protagonista — sprite em camadas (pose + expressões avulsas)
 ## Sprites: images/personagens/protagonista/
@@ -48,6 +57,22 @@ layeredimage protagonista:
 ## Usar com "at protagonista_size, <posicao>".
 transform protagonista_size:
     ysize 600
+
+## -----------------------------------------------------------------------
+## Close-up — mão com o celular (Cena 02, ao pegar o telefone)
+## Composto: a arte da mão (373x669) + o horário centralizado por cima da
+## tela do celular (bbox da tela em pixels da arte original: x 132-260,
+## y 154-438 -> centro em 196,296).
+## -----------------------------------------------------------------------
+image protagonista_celular_hora = Fixed(
+    Image("images/personagens/protagonista/protagonista_celular_wand.png"),
+    Text("7:12", xpos=196, ypos=296, xanchor=0.5, yanchor=0.5, size=48, bold=True, color="#1a1a1a", font="gui/font/Jost-Light.ttf"),
+    xysize=(373, 669),
+)
+
+transform celular_hora_size:
+    ysize 650
+    align (0.5, 0.62)
 
 ## -----------------------------------------------------------------------
 ## Kimiko — centopeia mágica

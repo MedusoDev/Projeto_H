@@ -69,6 +69,10 @@ label cena_02_quarto:
     show protagonista neutral talk
     jogador "...Bom dia, ao menos espero que ele seja bom."
 
+    jogador "..."
+
+    jogador "Um pouco deprimente me dar um bom dia... enfim."
+
     jogador "Preciso ver que horas são... cadê meu celular?"
 
     hide protagonista
@@ -94,7 +98,7 @@ label .losa:
     with dissolve
     jogador "Eu devia ter limpado isso... resquício do antigo inquilino."
     jogador "Enfim, depois eu limpo."
-    jogador "Pera... isso aqui parece pelo de bicho. Eu não tenho bicho."
+    jogador "Pera..."
     jogador "...Pet invisível?"
     hide protagonista
     with dissolve
@@ -113,13 +117,36 @@ label .foto:
 
 label .item_coletado:
     ## Aplica o item que acabou de ser usado: marca como coletado e troca o bg
+    $ item_atual = _return
     python:
         for item in quarto_coletaveis:
-            if item["nome"] == _return:
-                coletados[_return] = True
+            if item["nome"] == item_atual:
+                coletados[item_atual] = True
                 renpy.scene()
                 renpy.show("bg " + item["bg"])
 
+    with dissolve
+
+    if item_atual == "fone":
+        jump .fone_hora
+
+    jump .loop
+
+
+label .fone_hora:
+    ## Close-up da mão com o celular mostrando a hora
+    show protagonista_celular_hora at celular_hora_size
+    with dissolve
+
+    pause 1.5
+
+    hide protagonista_celular_hora
+    with dissolve
+
+    show protagonista neutral talk at protagonista_size, center
+    with dissolve
+    jogador "7h12... ainda dá pra relaxar um pouco antes de precisar me arrumar de verdade."
+    hide protagonista
     with dissolve
 
     jump .loop
