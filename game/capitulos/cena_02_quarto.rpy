@@ -1,11 +1,9 @@
 ## ============================================================
 ## CENA 02 — QUARTO (MANHÃ)
-## Background: quarto_day. Sem sprite de protagonista por enquanto.
-## 8 objetos clicáveis em qualquer ordem.
-## Gaveta 2 encerra a fase e avança para Cena 03 (ligação).
+## Background: quarto_day (room_full.png).
 ## ============================================================
 
-## Estilo sem fundo, sem borda e sem indicador de foco — usado em todos os hotspots
+## Estilo sem fundo, sem borda e sem indicador de foco — usado nos hotspots
 style quarto_hs:
     background          None
     hover_background    None
@@ -16,92 +14,47 @@ style quarto_hs:
     focus_rect (0, 0, 0, 0)
 
 
-screen quarto_exploracao():
+## Coletáveis: somem da cena e trocam o bg quando usados.
+## Adicionar um novo item aqui (+ os PNGs em coletaveis/) é o suficiente,
+## a screen e o loop abaixo lidam com o resto.
+define quarto_coletaveis = [
+    {"nome": "fone", "hs": "hs_item_fone", "hover": "hs_item_fone_hover", "bg": "quarto_no_fone"},
+]
 
-    ## Gaveta 1 — contém a varinha
+
+screen quarto_exploracao(coletados):
+
+    ## -- Fixos: sempre clicáveis, não alteram o bg --
     imagebutton:
         idle       Null(width=1280, height=720)
-        hover      "hs_gaveta1_hover"
-        focus_mask "hs_gaveta1"
+        hover      "hs_fixo_losa_hover"
+        focus_mask "hs_fixo_losa"
         keyboard_focus False
         style      "quarto_hs"
         xpos 0 ypos 0
-        action Return("gaveta1")
+        action Return("losa")
 
-    ## Gaveta 2 — encerra a exploração (pegar roupas)
     imagebutton:
         idle       Null(width=1280, height=720)
-        hover      "hs_gaveta2_hover"
-        focus_mask "hs_gaveta2"
+        hover      "hs_fixo_foto_hover"
+        focus_mask "hs_fixo_foto"
         keyboard_focus False
         style      "quarto_hs"
         xpos 0 ypos 0
-        action Return("gaveta2")
+        action Return("foto")
 
-    ## Cama
-    imagebutton:
-        idle       Null(width=1280, height=720)
-        hover      "hs_cama_hover"
-        focus_mask "hs_cama"
-        keyboard_focus False
-        style      "quarto_hs"
-        xpos 0 ypos 0
-        action Return("cama")
+    ## -- Coletáveis: somem depois de usados --
+    for item in quarto_coletaveis:
+        if not coletados[item["nome"]]:
+            imagebutton:
+                idle       Null(width=1280, height=720)
+                hover      item["hover"]
+                focus_mask item["hs"]
+                keyboard_focus False
+                style      "quarto_hs"
+                xpos 0 ypos 0
+                action Return(item["nome"])
 
-    ## Computador — agenda do dia
-    imagebutton:
-        idle       Null(width=1280, height=720)
-        hover      "hs_computador_hover"
-        focus_mask "hs_computador"
-        keyboard_focus False
-        style      "quarto_hs"
-        xpos 0 ypos 0
-        action Return("computador")
-
-    ## Quadro — foto com rosto riscado
-    imagebutton:
-        idle       Null(width=1280, height=720)
-        hover      "hs_quadro_hover"
-        focus_mask "hs_quadro"
-        keyboard_focus False
-        style      "quarto_hs"
-        xpos 0 ypos 0
-        action Return("quadro")
-
-    ## Celular
-    imagebutton:
-        idle       Null(width=1280, height=720)
-        hover      "hs_celular_hover"
-        focus_mask "hs_celular"
-        keyboard_focus False
-        style      "quarto_hs"
-        xpos 0 ypos 0
-        action Return("celular")
-
-    ## Abajur
-    imagebutton:
-        idle       Null(width=1280, height=720)
-        hover      "hs_abajur_hover"
-        focus_mask "hs_abajur"
-        keyboard_focus False
-        style      "quarto_hs"
-        xpos 0 ypos 0
-        action Return("abajur")
-
-    ## Relógio
-    imagebutton:
-        idle       Null(width=1280, height=720)
-        hover      "hs_relogio_hover"
-        focus_mask "hs_relogio"
-        keyboard_focus False
-        style      "quarto_hs"
-        xpos 0 ypos 0
-        action Return("relogio")
-
-
-## ------------------------------------------------------------
-## Label principal
-## ------------------------------------------------------------
 
 label cena_02_quarto:
 
@@ -116,90 +69,57 @@ label cena_02_quarto:
     show protagonista neutral talk
     jogador "...Bom dia, ao menos espero que ele seja bom."
 
+    jogador "Preciso ver que horas são... cadê meu celular?"
+
     hide protagonista
     with dissolve
 
+    $ coletados = {item["nome"]: False for item in quarto_coletaveis}
 
 label .loop:
-    call screen quarto_exploracao
+    call screen quarto_exploracao(coletados)
 
-    if _return == "gaveta1":
-        jump cena_02_quarto.gaveta1
-    elif _return == "gaveta2":
-        jump cena_02_quarto.gaveta2
-    elif _return == "cama":
-        jump cena_02_quarto.cama
-    elif _return == "computador":
-        jump cena_02_quarto.computador
-    elif _return == "quadro":
-        jump cena_02_quarto.quadro
-    elif _return == "celular":
-        jump cena_02_quarto.celular
-    elif _return == "abajur":
-        jump cena_02_quarto.abajur
-    elif _return == "relogio":
-        jump cena_02_quarto.relogio
+    if _return == "losa":
+        jump .losa
+    elif _return == "foto":
+        jump .foto
+    elif _return in coletados:
+        jump .item_coletado
     else:
-        jump cena_02_quarto.loop
+        jump .loop
 
 
-## ------------------------------------------------------------
-## Interações
-## ------------------------------------------------------------
-
-label .gaveta1:
-    ## Varinha aparece saindo da gaveta — TODO: show sprite varinha
-    show protagonista neutral talk at protagonista_size, center
-    jogador "Minha varinha. Única coisa que eu trouxe da escola que definitivamente não vai me trair."
+label .losa:
+    show protagonista arms_pensativo neutral talk at protagonista_size, center
+    with dissolve
+    jogador "Eu devia ter limpado isso... resquício do antigo inquilino."
+    jogador "Enfim, depois eu limpo."
+    jogador "Pera... isso aqui parece pelo de bicho. Eu não tenho bicho."
+    jogador "...Pet invisível?"
     hide protagonista
-    pensamento "...Espero."
-    jump cena_02_quarto.loop
+    with dissolve
+    jump .loop
 
-label .cama:
-    show protagonista angry talk at protagonista_size, center
-    jogador "Acabei de acordar, agora não."
-    hide protagonista
-    pensamento "Eu sei o que você tá pensando e a resposta é não."
-    jump cena_02_quarto.loop
 
-label .computador:
-    ## Agenda do dia — crítico: lista as tarefas que serão rastreadas no mapa
-    show protagonista neutral talk at protagonista_size, center
-    jogador "Certo. Só isso. Eu consigo."
-    hide protagonista
-    ## TODO: implementar screen de UI com lista de tarefas quando o mapa for feito
-    jump cena_02_quarto.loop
-
-label .quadro:
-    ## Foto com rosto riscado — aparece de novo na Cena 10-B quando Nósfera entra
-    pensamento "..."
-    pensamento "Nem sei porque ainda guardo isso."
-    jump cena_02_quarto.loop
-
-label .celular:
+label .foto:
     show protagonista sad talk at protagonista_size, center
-    jogador "Nenhuma mensagem."
+    with dissolve
+    jogador "Essa foto é de outra pessoa que morava aqui antes..."
+    jogador "Não sei o que aconteceu, mas... entendo o sentimento."
     hide protagonista
-    jump cena_02_quarto.loop
+    with dissolve
+    jump .loop
 
-label .abajur:
-    show protagonista neutral talk at protagonista_size, center
-    jogador "Comprei esse abajur porque tava barato. Não combina com nada no quarto mas não vou admitir isso pra ninguém."
-    hide protagonista
-    jump cena_02_quarto.loop
 
-label .relogio:
-    show protagonista angry talk at protagonista_size, center
-    jogador "Já fez o suficiente. Pode parar agora."
-    hide protagonista
-    jump cena_02_quarto.loop
+label .item_coletado:
+    ## Aplica o item que acabou de ser usado: marca como coletado e troca o bg
+    python:
+        for item in quarto_coletaveis:
+            if item["nome"] == _return:
+                coletados[_return] = True
+                renpy.scene()
+                renpy.show("bg " + item["bg"])
 
-label .gaveta2:
-    ## Encerra a exploração — avança para Cena 03
-    show protagonista neutral talk at protagonista_size, center
-    jogador "Roupas. Certo."
-    hide protagonista
-    pensamento "Pronto."
-    ## jump cena_03_ligacao
-    ## Cena 03 ainda não implementada — retorna ao menu por enquanto
-    return
+    with dissolve
+
+    jump .loop

@@ -8,15 +8,20 @@ define jogador     = Character("[nome_jogador]", color="#e0e0ff", image="protago
 define pensamento  = Character(None, what_italic=True, what_color="#b0b0c8")
 
 ## -----------------------------------------------------------------------
-## Protagonista — sprite em camadas (base + expressões avulsas)
+## Protagonista — sprite em camadas (pose + expressões avulsas)
 ## Sprites: images/personagens/protagonista/
-## base.png tem o rosto em branco; eyebrows_*/mouth_*/sweat.png encaixam por cima,
-## todos no mesmo canvas (sem necessidade de offset).
+## arms_free.png é a pose padrão (rosto em branco); arms_pensativo.png para
+## momentos de reflexão (ex: mexendo no computador/checklist).
+## eyebrows_*/mouth_*/sweat.png encaixam por cima, todos no mesmo canvas
+## (sem necessidade de offset).
 ## -----------------------------------------------------------------------
 
 layeredimage protagonista:
-    always:
-        "images/personagens/protagonista/base.png"
+    group pose:
+        attribute arms_free default:
+            "images/personagens/protagonista/arms_free.png"
+        attribute arms_pensativo:
+            "images/personagens/protagonista/arms_pensativo.png"
 
     group eyebrows:
         attribute neutral default:

@@ -138,10 +138,10 @@ style window:
     background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
 style namebox:
-    xpos gui.name_xpos
+    xpos gui.name_xpos - 167
     xanchor gui.name_xalign
-    xsize gui.namebox_width
-    ypos gui.name_ypos
+    xsize gui.namebox_width - 20
+    ypos gui.name_ypos + 10
     ysize gui.namebox_height
 
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
@@ -149,7 +149,7 @@ style namebox:
 
 style say_label:
     properties gui.text_properties("name", accent=True)
-    xalign gui.name_xalign
+    xalign 1.0
     yalign 0.5
 
 style say_dialogue:
@@ -157,7 +157,7 @@ style say_dialogue:
 
     xpos gui.dialogue_xpos
     xsize gui.dialogue_width
-    ypos gui.dialogue_ypos
+    ypos gui.dialogue_ypos - 11
 
     adjust_spacing False
 
@@ -240,20 +240,28 @@ screen quick_menu():
     ## Certifique-se de que isso apareça na parte superior de outras telas.
     zorder 100
 
-    if quick_menu:
+    if quick_menu and not renpy.get_screen('choice'):
 
         hbox:
             style_prefix "quick"
-            style "quick_menu"
 
-            textbutton _("Voltar") action Rollback()
-            textbutton _("Histórico") action ShowMenu('history')
-            textbutton _("Pular") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Automotivo") action Preference("auto-forward", "toggle")
-            textbutton _("Salvar") action ShowMenu('save')
-            textbutton _("Q.Salvar") action QuickSave()
-            textbutton _("Q. Carga") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
+            xalign 0.5
+            yalign 1.0
+            imagemap:
+                ground "gui/textbox_ground.png"
+                idle "gui/textbox_ground.png"
+                hover "gui/textbox_hover.png"
+                selected_hover "gui/textbox_selected_hover.png"
+                selected_idle "gui/textbox_hover.png"
+
+                hotspot (871, 188, 35, 35) action Skip() alternate Skip(fast=True, confirm=True)
+                hotspot (928, 188, 35, 35) action Preference("auto-forward", "toggle")
+                hotspot (983, 188, 35, 35) action Rollback()
+
+                hotspot (345, 188, 35, 35) action ShowMenu('history')
+                hotspot (237, 188, 35, 35) action ShowMenu('save')
+                hotspot (290, 188, 35, 35) action ShowMenu('load')
+                hotspot (398, 188, 35, 35) action ShowMenu('preferences')
 
 
 ## Esse código garante que a tela quick_menu seja exibida no jogo, sempre que o
@@ -263,13 +271,8 @@ init python:
 
 default quick_menu = True
 
-style quick_menu is hbox
 style quick_button is default
 style quick_button_text is button_text
-
-style quick_menu:
-    xalign 0.5
-    yalign 1.0
 
 style quick_button:
     properties gui.button_properties("quick_button")
@@ -354,27 +357,25 @@ screen main_menu():
 
     ## Isso garante que qualquer outra tela de menu seja substituída.
     tag menu
+    style_prefix "main_menu"
 
     add gui.main_menu_background
 
-    ## Esse quadro vazio escurece o menu principal.
     frame:
         style "main_menu_frame"
+    vbox:
+        xpos 187
+        ypos 220
+        textbutton _("Início") action Start() at button1
+        textbutton _("Carga") action ShowMenu("load") at button2
+        textbutton _("Preferências") action ShowMenu("preferences") at button3
+        textbutton _("Ajuda") action ShowMenu("help") at button4
+        textbutton _("Sobre") action ShowMenu("about") at button5
+        textbutton _("Sair") action Quit(confirm=not main_menu) at button6
 
-    ## A instrução de uso inclui outra tela dentro desta. O conteúdo real do
-    ## menu principal está na tela de navegação.
-    use navigation
+    add "gui/overlay/main_menu_logo.png"
 
-    if gui.show_name:
-
-        vbox:
-            style "main_menu_vbox"
-
-            text "[config.name!t]":
-                style "main_menu_title"
-
-            text "[config.version]":
-                style "main_menu_version"
+    text "[config.name!t]" size 40 xpos 334 ypos 150 xanchor 0.5 yanchor 0.5 color gui.accent_color
 
 
 style main_menu_frame is empty
@@ -382,28 +383,18 @@ style main_menu_vbox is vbox
 style main_menu_text is gui_text
 style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
+style main_menu_button_text:
+    size 47
+    idle_color "#4e4e4e"
+    hover_color gui.accent_color
+style main_menu_button:
+    spacing -13
+    bottom_margin -19
 
 style main_menu_frame:
-    xsize 280
-    yfill True
-
     background "gui/overlay/main_menu.png"
 
-style main_menu_vbox:
-    xalign 1.0
-    xoffset -20
-    xmaximum 800
-    yalign 1.0
-    yoffset -20
-
-style main_menu_text:
-    properties gui.text_properties("main_menu", accent=True)
-
-style main_menu_title:
-    properties gui.text_properties("title")
-
-style main_menu_version:
-    properties gui.text_properties("version")
+style main_menu_vbox
 
 
 ## Tela do menu do jogo ########################################################
@@ -1530,8 +1521,9 @@ screen quick_menu():
     if quick_menu:
 
         hbox:
-            style "quick_menu"
             style_prefix "quick"
+            xalign 0.5
+            yalign 1.0
 
             textbutton _("Voltar") action Rollback()
             textbutton _("Pular") action Skip() alternate Skip(fast=True, confirm=True)

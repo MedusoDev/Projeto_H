@@ -27,7 +27,7 @@ define config.check_conflicting_properties = True
 
 ## Uma cor de destaque usada em toda a interface para rotular e destacar o
 ## texto.
-define gui.accent_color = '#0066cc'
+define gui.accent_color = '#766249'
 
 ## A cor usada para um botão de texto quando ele não está selecionado nem passa
 ## o mouse.
@@ -38,7 +38,7 @@ define gui.idle_color = '#888888'
 define gui.idle_small_color = '#aaaaaa'
 
 ## A cor que é usada para botões e barras que passam pelo mouse.
-define gui.hover_color = '#66a3e0'
+define gui.hover_color = '#a78b67'
 
 ## A cor usada em um botão de texto quando ele está selecionado, mas não
 ## focalizado. Um botão estará selecionado se for a tela atual ou o valor de
@@ -51,8 +51,8 @@ define gui.insensitive_color = '#8888887f'
 ## Cores usadas para as partes das barras que não estão preenchidas. Elas não
 ## são usadas diretamente, mas são usadas ao gerar novamente os arquivos de
 ## imagem de barra.
-define gui.muted_color = '#002851'
-define gui.hover_muted_color = '#003d7a'
+define gui.muted_color = '#510000'
+define gui.hover_muted_color = '#7a0000'
 
 ## As cores usadas para o diálogo e o texto da opção de menu.
 define gui.text_color = '#ffffff'
@@ -62,13 +62,13 @@ define gui.interface_text_color = '#ffffff'
 ## Fontes e tamanhos de fonte ##################################################
 
 ## A fonte usada para o texto do jogo.
-define gui.text_font = "DejaVuSans.ttf"
+define gui.text_font = "gui/font/Jost-Light.ttf"
 
 ## A fonte usada para os nomes dos caracteres.
-define gui.name_text_font = "DejaVuSans.ttf"
+define gui.name_text_font = "gui/font/Redressed.ttf"
 
 ## A fonte usada para o texto fora do jogo.
-define gui.interface_text_font = "DejaVuSans.ttf"
+define gui.interface_text_font = "gui/font/Jost-Light.ttf"
 
 ## O tamanho do texto normal do diálogo.
 define gui.text_size = 22
@@ -121,16 +121,16 @@ define gui.name_xalign = 0.0
 
 ## A largura, a altura e as bordas da caixa que contém o nome do caractere ou
 ## Nenhum para dimensioná-la automaticamente.
-define gui.namebox_width = None
-define gui.namebox_height = None
+define gui.namebox_width = 300
+define gui.namebox_height = 36
 
 ## As bordas da caixa que contém o nome do personagem, na ordem esquerda,
 ## superior, direita e inferior.
-define gui.namebox_borders = Borders(5, 5, 5, 5)
+define gui.namebox_borders = Borders(3, 3, 50, 3)
 
 ## Se for True, o plano de fundo da caixa de nome será lado a lado; se for
 ## False, o plano de fundo da caixa de nome será dimensionado.
-define gui.namebox_tile = False
+define gui.namebox_tile = True
 
 
 ## O posicionamento do diálogo em relação à caixa de texto. Esse pode ser um
@@ -190,7 +190,7 @@ define gui.button_text_xalign = 0.0
 
 define gui.radio_button_borders = Borders(18, 4, 4, 4)
 
-define gui.check_button_borders = Borders(18, 4, 4, 4)
+define gui.check_button_borders = Borders(33, 4, 4, 4)
 
 define gui.confirm_button_text_xalign = 0.5
 
@@ -214,14 +214,14 @@ define gui.quick_button_text_selected_color = gui.accent_color
 
 define gui.choice_button_width = 790
 define gui.choice_button_height = None
-define gui.choice_button_tile = False
+define gui.choice_button_tile = True
 define gui.choice_button_borders = Borders(100, 5, 100, 5)
 define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = '#888888'
+define gui.choice_button_text_idle_color = "#cccccc"
 define gui.choice_button_text_hover_color = "#ffffff"
-define gui.choice_button_text_insensitive_color = '#8888887f'
+define gui.choice_button_text_insensitive_color = "#444444"
 
 
 ## Botões de slot de arquivo ###################################################
@@ -303,10 +303,10 @@ define gui.confirm_frame_borders = Borders(40, 40, 40, 40)
 define gui.skip_frame_borders = Borders(16, 5, 50, 5)
 
 ## O quadro que é usado como parte da tela de notificação.
-define gui.notify_frame_borders = Borders(16, 5, 40, 5)
+define gui.notify_frame_borders = Borders(85, 85, 85, 85)
 
 ## Os planos de fundo dos quadros devem ser lado a lado?
-define gui.frame_tile = False
+define gui.frame_tile = True
 
 
 ## Barras, barras de rolagem e controles deslizantes ###########################
@@ -326,7 +326,7 @@ define gui.slider_size = 25
 ## True (verdadeiro) se as imagens da barra devem ser lado a lado. False se elas
 ## devem ser escalonadas linearmente.
 define gui.bar_tile = False
-define gui.scrollbar_tile = False
+define gui.scrollbar_tile = True
 define gui.slider_tile = False
 
 ## Bordas horizontais.
