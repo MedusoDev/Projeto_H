@@ -19,10 +19,11 @@ style quarto_hs:
 ## a screen e o loop abaixo lidam com o resto.
 define quarto_coletaveis = [
     {"nome": "fone", "hs": "hs_item_fone", "hover": "hs_item_fone_hover", "bg": "quarto_no_fone"},
+    {"nome": "wand", "hs": "hs_item_wand", "hover": "hs_item_wand_hover", "bg": "quarto_no_fone_no_wand"},
 ]
 
 
-screen quarto_exploracao(coletados):
+screen quarto_exploracao(coletados, pc_ativado):
 
     ## -- Fixos: sempre clicáveis, não alteram o bg --
     imagebutton:
@@ -59,6 +60,15 @@ screen quarto_exploracao(coletados):
         xpos 0 ypos 0
         action Return("stone")
 
+    imagebutton:
+        idle       Null(width=1280, height=720)
+        hover      "hs_fixo_pc_hover"
+        focus_mask "hs_fixo_pc"
+        keyboard_focus False
+        style      "quarto_hs"
+        xpos 0 ypos 0
+        action Return("pc")
+
 
     ## -- Coletáveis: somem depois de usados --
     for item in quarto_coletaveis:
@@ -70,7 +80,12 @@ screen quarto_exploracao(coletados):
                 keyboard_focus False
                 style      "quarto_hs"
                 xpos 0 ypos 0
-                action Return(item["nome"])
+                ## A varinha só é coletada de verdade depois do gatilho do PC;
+                ## antes disso, clicar nela só mostra uma fala e não some da cena.
+                if item["nome"] == "wand" and not pc_ativado:
+                    action Return("wand_pre")
+                else:
+                    action Return(item["nome"])
 
 
 label cena_02_quarto:
@@ -96,18 +111,23 @@ label cena_02_quarto:
     with dissolve
 
     $ coletados = {item["nome"]: False for item in quarto_coletaveis}
+    $ pc_ativado = False
 
 label .loop:
-    call screen quarto_exploracao(coletados)
+    call screen quarto_exploracao(coletados, pc_ativado)
 
     if _return == "losa":
         jump .losa
     elif _return == "foto":
         jump .foto
+    elif _return == "wand_pre":
+        jump .wand_pre
     elif _return == "bed":
         jump .bed
     elif _return == "stone":
         jump .stone
+    elif _return == "pc":
+        jump .pc
     elif _return in coletados:
         jump .item_coletado
     else:
@@ -115,6 +135,14 @@ label .loop:
 
 
 label .losa:
+    if pc_ativado:
+        show protagonista neutral talk at protagonista_size, center
+        with dissolve
+        jogador "Juro que apago isso quando eu voltar."
+        hide protagonista
+        with dissolve
+        jump .loop
+
     show protagonista arms_pensativo neutral talk at protagonista_size, center
     with dissolve
     jogador "Eu devia ter limpado isso... resquício do antigo inquilino."
@@ -130,7 +158,7 @@ label .bed:
     with dissolve
     jogador "Eu devia arrumar a cama minha mãe vai impli..."
     show protagonista sad talk at protagonista_size, center
-    with dissolve 
+    with dissolve
     jogador "..ah"
     jogador "Deixa.."
     hide protagonista
@@ -138,6 +166,14 @@ label .bed:
     jump .loop
 
 label .stone:
+    if pc_ativado:
+        show protagonista neutral talk at protagonista_size, center
+        with dissolve
+        jogador "Sem tempo para contemplar a pedra agora."
+        hide protagonista
+        with dissolve
+        jump .loop
+
     show protagonista arms_pensativo  talk at protagonista_size, center
     with dissolve
     jogador "hum."
@@ -149,7 +185,37 @@ label .stone:
     jump .loop
 
 
+label .wand_pre:
+    show protagonista neutral talk at protagonista_size, center
+    with dissolve
+    jogador "As vezes eu esqueço que ela não gosta de lugares apertados."
+    hide protagonista
+    with dissolve
+    jump .loop
+
+
+label .pc:
+    $ pc_ativado = True
+    show protagonista arms_pensativo neutral talk at protagonista_size, center
+    with dissolve
+    jogador "Ok, se eu bobar mais vou me atrasar para o primeiro dia de trabalho."
+    jogador "E sinceramente, to precisando muito desse emprego..."
+    jogador "Mas antes preciso pegar algumas coisas..."
+    jogador "Primeiro minha varinha."
+    hide protagonista
+    with dissolve
+    jump .loop
+
+
 label .foto:
+    if pc_ativado:
+        show protagonista neutral talk at protagonista_size, center
+        with dissolve
+        jogador "Sem tempo pra isso agora."
+        hide protagonista
+        with dissolve
+        jump .loop
+
     show protagonista sad talk at protagonista_size, center
     with dissolve
     jogador "Essa foto é de outra pessoa que morava aqui antes..."
@@ -173,7 +239,22 @@ label .item_coletado:
 
     if item_atual == "fone":
         jump .fone_hora
+    elif item_atual == "wand":
+        jump .wand_pega
 
+    jump .loop
+
+
+label .wand_pega:
+    show protagonista neutral talk at protagonista_size, center
+    with dissolve
+    jogador "Minha varinha. Única coisa que eu trouxe da escola que definitivamente não vai me trair."
+    pensamento "...Espero."
+    jogador "Ok, agora preciso dos livros..."
+    jogador "Mas eles estão em uma dessas caixas... vai dar trabalho achar."
+    jogador "A menos que..."
+    hide protagonista
+    with dissolve
     jump .loop
 
 

@@ -372,6 +372,8 @@ screen main_menu():
         textbutton _("Ajuda") action ShowMenu("help") at button4
         textbutton _("Sobre") action ShowMenu("about") at button5
         textbutton _("Sair") action Quit(confirm=not main_menu) at button6
+        if config.developer:
+            textbutton _("(DEBUG) Constelação") action Start("constelacao_demo")
 
     add "gui/overlay/main_menu_logo.png"
 

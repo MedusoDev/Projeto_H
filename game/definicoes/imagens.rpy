@@ -3,6 +3,7 @@
 image bg sala_de_aula   = im.Scale("images/bg_sala_de_aula_vazia.png", 1280, 720)
 image bg quarto_day     = im.Scale("images/background/room_full.png", 1280, 720)
 image bg quarto_no_fone = im.Scale("images/background/room_no_fone.png", 1280, 720)
+image bg quarto_no_fone_no_wand = im.Scale("images/background/room_no_fone_no_wand.png", 1280, 720)
 
 ## TODO: adicionar bg oceano_escuro para a Cena 01 (Pesadelo)
 
@@ -28,6 +29,9 @@ image hs_fixo_clock_hover = im.Scale("images/hotspots/room/fixos/room_full_clock
 
 image hs_fixo_stone       = im.Scale("images/hotspots/room/fixos/room_full_stone.png",     1280,720)
 image hs_fixo_stone_hover = im.Scale("images/hotspots/room/fixos/room_full_stone_hover.png",     1280,720)
+
+image hs_fixo_pc       = im.Scale("images/hotspots/room/fixos/room_full_pc.png",     1280,720)
+image hs_fixo_pc_hover = im.Scale("images/hotspots/room/fixos/room_full_pc_hover.png",     1280,720)
 ## ------- Coletaveis
 
 image hs_item_wand        = im.Scale("images/hotspots/room/coletaveis/room_full_wand.png",       1280, 720)
