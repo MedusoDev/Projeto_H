@@ -62,7 +62,9 @@ define gui.interface_text_color = '#ffffff'
 ## Fontes e tamanhos de fonte ##################################################
 
 ## A fonte usada para o texto do jogo.
-define gui.text_font = "gui/font/Jost-Light.ttf"
+## Nunito (Google Fonts, licença OFL) — mais legível pra diálogo que a
+## Jost-Light, que fica fina demais em tamanho pequeno.
+define gui.text_font = "gui/font/Nunito-Regular.ttf"
 
 ## A fonte usada para os nomes dos caracteres.
 define gui.name_text_font = "gui/font/Redressed.ttf"
