@@ -163,8 +163,8 @@ define gui.button_width = None
 define gui.button_height = None
 
 ## As bordas em cada lado do botão, na ordem esquerda, superior, direita e
-## inferior.
-define gui.button_borders = Borders(4, 4, 4, 4)
+## inferior. (>= raio dos cantos do hover_background gerado, senão distorce.)
+define gui.button_borders = Borders(12, 10, 12, 10)
 
 ## Se for True, a imagem de fundo será lado a lado. Se for False, a imagem de
 ## fundo será dimensionada linearmente.
@@ -239,7 +239,7 @@ define gui.choice_button_text_insensitive_color = "#5a5e6c"
 ## O botão salvar slot.
 define gui.slot_button_width = 276
 define gui.slot_button_height = 206
-define gui.slot_button_borders = Borders(10, 10, 10, 10)
+define gui.slot_button_borders = Borders(16, 16, 16, 16)
 define gui.slot_button_text_size = 14
 define gui.slot_button_text_xalign = 0.5
 define gui.slot_button_text_idle_color = gui.idle_small_color
@@ -331,16 +331,16 @@ define gui.slider_size = 25
 ## True (verdadeiro) se as imagens da barra devem ser lado a lado. False se elas
 ## devem ser escalonadas linearmente.
 define gui.bar_tile = False
-define gui.scrollbar_tile = True
+define gui.scrollbar_tile = False
 define gui.slider_tile = False
 
 ## Bordas horizontais.
-define gui.bar_borders = Borders(4, 4, 4, 4)
+define gui.bar_borders = Borders(8, 8, 8, 8)
 define gui.scrollbar_borders = Borders(4, 4, 4, 4)
 define gui.slider_borders = Borders(4, 4, 4, 4)
 
 ## Bordas verticais.
-define gui.vbar_borders = Borders(4, 4, 4, 4)
+define gui.vbar_borders = Borders(8, 8, 8, 8)
 define gui.vscrollbar_borders = Borders(4, 4, 4, 4)
 define gui.vslider_borders = Borders(4, 4, 4, 4)
 

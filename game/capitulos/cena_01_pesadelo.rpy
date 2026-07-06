@@ -111,10 +111,11 @@ label cena_01_pesadelo:
         config.allow_skipping = False
 
         ## Velocidade fixa da cena: a preferência do player é neutralizada
-        ## pro mesmo valor do cps por fala (16), então o slider de
-        ## "Velocidade do texto" não interfere de nenhum jeito.
+        ## (cada fala traz o próprio cps), então o slider de "Velocidade do
+        ## texto" não interfere de nenhum jeito. Afogamento digita a 24,
+        ## o ser a 30 — o ritmo diferente é caracterização.
         _cena01_cps_bkp = preferences.text_cps
-        preferences.text_cps = 16
+        preferences.text_cps = 28
 
         ## Sem menu (Esc) e sem quick menu — impede save/load e mudança de
         ## preferências no meio da cena
@@ -136,7 +137,7 @@ label cena_01_pesadelo:
     window show
 
     ## O ambiente começa a rolar e só aparece "..."
-    pensamento "...{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    pensamento "...{w=3.0}{nw}" (slow_abortable=False, cps=24)
 
     ## "Aos poucos surge um oceano profundo" — cor + bolhas subindo
     ## (placeholder até ter a arte do bg).
@@ -144,35 +145,51 @@ label cena_01_pesadelo:
     with Dissolve(3.0)
     show screen pesadelo_bolhas
 
-    pensamento "Não há mais nada a se fazer...{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    ## Sensações físicas primeiro: o jogador sente o afogamento antes do
+    ## pensamento existencial.
+    pensamento "Frio.{w=2.5}{nw}" (slow_abortable=False, cps=24)
+
+    pensamento "Já não sei mais onde é pra cima.{w=2.5}{nw}" (slow_abortable=False, cps=24)
+
+    pensamento "Não há mais nada a se fazer...{w=3.0}{nw}" (slow_abortable=False, cps=24)
 
     ## Tentáculos verdes surgem — efeito visual a implementar depois
-    pensamento "...não há mais nada que eu possa fazer.{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    pensamento "...não há mais nada que eu possa fazer.{w=3.0}{nw}" (slow_abortable=False, cps=24)
 
     ## ====================================================================
     ## Contato — um ser desconhecido tenta se comunicar. O jogador não vai
     ## se lembrar disso ao acordar (só do pesadelo em si).
     ## ====================================================================
 
-    ## A sombra misteriosa (o "ser") surge devagar no fundo.
+    ## A sombra surge ANTES da voz: primeiro se percebe, depois se ouve.
     show pesadelo_sombra at pesadelo_sombra_pose
 
-    ser "Alô? Testando?... Sempre erro essa magia maldita...{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    pensamento "...?{w=2.0}{nw}" (slow_abortable=False, cps=24)
 
-    ser "Ahh, agora te vejo!{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    ## Primeiro contato falha: chega quebrado, em fragmentos.
+    ser_glitch "{glitch=3}...ndo? Está me... {glitch=5}{w=2.2}{nw}" (slow_abortable=False, cps=30)
 
-    ser "Senhor... qual é seu nome mesmo?{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    ser "...Alô? Testando? Sempre erro essa magia maldita...{w=2.2}{nw}" (slow_abortable=False, cps=30)
+
+    ser "Ahh! Agora te vejo.{w=2.2}{nw}" (slow_abortable=False, cps=30)
+
+    ser "Que fundo você foi parar, hein...{w=2.2}{nw}" (slow_abortable=False, cps=30)
+
+    ser "Senhor... qual é o seu nome mesmo?{w=2.5}{nw}" (slow_abortable=False, cps=30)
 
     ## Digitar o nome continua funcionando: o input confirma com Enter
     ## (evento "input_enter", não "dismiss"), então a trava não afeta.
     $ nome_jogador = renpy.input("Como você se chama?", length=20).strip() or "Estagiário"
 
-    ser "Ahhh, sim... senhor [nome_jogador].{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    ser "Ahhh, sim. Senhor [nome_jogador].{w=2.2}{nw}" (slow_abortable=False, cps=30)
+
+    ## Reação levemente errada ao nome — ele sabe mais do que diz.
+    ser "É. Combina com você.{w=2.5}{nw}" (slow_abortable=False, cps=30)
 
     ## Tic-tac por baixo da fala — para quando ela termina
     play tictac "audio/clock_tictac.wav"
 
-    ser_glitch "Eu sou {glitch=10}...{w=3.0}{nw}" (slow_abortable=False, cps=16)
+    ser_glitch "Escute bem, porque o tempo aqui é curto. Eu sou {glitch=10}{w=3.0}{nw}" (slow_abortable=False, cps=30)
 
     stop tictac fadeout 0.2
     ## Em loop: o alarme atravessa a transição e continua na Cena 02 até o

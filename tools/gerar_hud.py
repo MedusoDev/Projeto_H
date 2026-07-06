@@ -149,22 +149,102 @@ def linha_decorativa(caminho, w, h, x0, x1, y0, esp, cor):
     salvar_png(caminho, w, h, linhas)
 
 
+## Cores extras do menu
+TRILHO = (35, 40, 56, 200)          # trilho de slider/barra vazio
+TRILHO_HOVER = (57, 65, 92, 220)
+POLEGAR = (143, 180, 255, 235)      # thumb do slider (acento)
+POLEGAR_HOVER = (201, 214, 255, 255)
+SEM_BORDA = (0, 0, 0, 0)
+ACENTO_FORTE = (143, 180, 255, 150)
+
 if __name__ == "__main__":
-    ## Caixa de diálogo: painel com respiro nas laterais e embaixo
+    botao = os.path.join(GUI, "button")
+    overlay = os.path.join(GUI, "overlay")
+
+    ## ---------- HUD de diálogo ----------
     painel(os.path.join(GUI, "textbox.png"), 1280, 185, 18,
            PAINEL, BORDA_SUTIL, margem=(120, 8, 120, 10))
-
-    ## Pílula do nome
     painel(os.path.join(GUI, "namebox.png"), 300, 36, 17,
            NAME_FILL, ACENTO)
-
-    ## Frame genérico (confirm, etc.)
     painel(os.path.join(GUI, "frame.png"), 96, 96, 18,
            PAINEL_SOLIDO, BORDA_SUTIL)
-
-    ## Botões de escolha
-    pasta_botao = os.path.join(GUI, "button")
-    painel(os.path.join(pasta_botao, "choice_idle_background.png"), 240, 48, 14,
+    painel(os.path.join(botao, "choice_idle_background.png"), 240, 48, 14,
            CHOICE_IDLE, BORDA_SUTIL)
-    painel(os.path.join(pasta_botao, "choice_hover_background.png"), 240, 48, 14,
+    painel(os.path.join(botao, "choice_hover_background.png"), 240, 48, 14,
            CHOICE_HOVER, (143, 180, 255, 140))
+
+    ## ---------- Menu principal ----------
+    ## Fundo: céu noturno com estrelas (identidade do minigame)
+    fundo_estrelado(os.path.join(GUI, "main_menu.png"))
+    ## Painel lateral dos botões (mesma região da arte antiga: x 130-535)
+    painel(os.path.join(overlay, "main_menu.png"), 1280, 720, 20,
+           PAINEL, BORDA_SUTIL, margem=(130, 24, 745, 24))
+    ## "Logo": linha de acento discreta sob o título (substitui a filigrana)
+    linha_decorativa(os.path.join(overlay, "main_menu_logo.png"), 1280, 720,
+                     184, 484, 190, 2, ACENTO_FORTE)
+
+    ## ---------- Menu de jogo (save/load/opções/etc.) ----------
+    ## Fundo quando aberto em jogo: gradiente noturno sem estrelas
+    fundo_estrelado(os.path.join(GUI, "game_menu.png"), estrelas=False,
+                    topo=(4, 6, 12), base=(9, 13, 24))
+    ## Quadro do conteúdo: painel grande com borda, resto escurecido
+    painel(os.path.join(overlay, "game_menu.png"), 1280, 720, 22,
+           (10, 13, 22, 235), BORDA_SUTIL, margem=(20, 20, 20, 20),
+           externo=(3, 4, 8, 205))
+    ## Véu do diálogo de confirmação
+    chapado(os.path.join(overlay, "confirm.png"), 1280, 720, (4, 6, 10, 185))
+
+    ## ---------- Botões genéricos / quick / slots ----------
+    chapado(os.path.join(botao, "idle_background.png"), 96, 48, (0, 0, 0, 0))
+    painel(os.path.join(botao, "hover_background.png"), 96, 48, 10,
+           (255, 255, 255, 20), (255, 255, 255, 30))
+    chapado(os.path.join(botao, "quick_idle_background.png"), 32, 32, (0, 0, 0, 0))
+    chapado(os.path.join(botao, "quick_hover_background.png"), 32, 32, (0, 0, 0, 0))
+    painel(os.path.join(botao, "slot_idle_background.png"), 276, 206, 14,
+           CHOICE_IDLE, BORDA_SUTIL)
+    painel(os.path.join(botao, "slot_hover_background.png"), 276, 206, 14,
+           CHOICE_HOVER, (143, 180, 255, 140))
+
+    ## ---------- Sliders / barras / scrollbars ----------
+    slider = os.path.join(GUI, "slider")
+    painel(os.path.join(slider, "horizontal_idle_bar.png"), 64, 25, 4,
+           TRILHO, SEM_BORDA, esp=0, margem=(2, 9, 2, 8))
+    painel(os.path.join(slider, "horizontal_hover_bar.png"), 64, 25, 4,
+           TRILHO_HOVER, SEM_BORDA, esp=0, margem=(2, 9, 2, 8))
+    painel(os.path.join(slider, "vertical_idle_bar.png"), 25, 64, 4,
+           TRILHO, SEM_BORDA, esp=0, margem=(9, 2, 8, 2))
+    painel(os.path.join(slider, "vertical_hover_bar.png"), 25, 64, 4,
+           TRILHO_HOVER, SEM_BORDA, esp=0, margem=(9, 2, 8, 2))
+    for nome, cor in (("idle", POLEGAR), ("hover", POLEGAR_HOVER)):
+        painel(os.path.join(slider, "horizontal_%s_thumb.png" % nome), 25, 25, 9,
+               cor, SEM_BORDA, esp=0, margem=(3, 3, 3, 3))
+        painel(os.path.join(slider, "vertical_%s_thumb.png" % nome), 25, 25, 9,
+               cor, SEM_BORDA, esp=0, margem=(3, 3, 3, 3))
+
+    barra = os.path.join(GUI, "bar")
+    painel(os.path.join(barra, "left.png"), 64, 25, 6,
+           POLEGAR, SEM_BORDA, esp=0, margem=(2, 6, 2, 7))
+    painel(os.path.join(barra, "right.png"), 64, 25, 6,
+           TRILHO, SEM_BORDA, esp=0, margem=(2, 6, 2, 7))
+    painel(os.path.join(barra, "top.png"), 25, 64, 6,
+           POLEGAR, SEM_BORDA, esp=0, margem=(6, 2, 7, 2))
+    painel(os.path.join(barra, "bottom.png"), 25, 64, 6,
+           TRILHO, SEM_BORDA, esp=0, margem=(6, 2, 7, 2))
+
+    rolagem = os.path.join(GUI, "scrollbar")
+    painel(os.path.join(rolagem, "horizontal_idle_bar.png"), 64, 12, 3,
+           (20, 24, 38, 140), SEM_BORDA, esp=0, margem=(2, 3, 2, 3))
+    painel(os.path.join(rolagem, "horizontal_hover_bar.png"), 64, 12, 3,
+           (20, 24, 38, 180), SEM_BORDA, esp=0, margem=(2, 3, 2, 3))
+    painel(os.path.join(rolagem, "vertical_idle_bar.png"), 12, 64, 3,
+           (20, 24, 38, 140), SEM_BORDA, esp=0, margem=(3, 2, 3, 2))
+    painel(os.path.join(rolagem, "vertical_hover_bar.png"), 12, 64, 3,
+           (20, 24, 38, 180), SEM_BORDA, esp=0, margem=(3, 2, 3, 2))
+    painel(os.path.join(rolagem, "horizontal_idle_thumb.png"), 64, 12, 4,
+           (90, 100, 130, 220), SEM_BORDA, esp=0, margem=(0, 2, 0, 2))
+    painel(os.path.join(rolagem, "horizontal_hover_thumb.png"), 64, 12, 4,
+           POLEGAR, SEM_BORDA, esp=0, margem=(0, 2, 0, 2))
+    painel(os.path.join(rolagem, "vertical_idle_thumb.png"), 12, 64, 4,
+           (90, 100, 130, 220), SEM_BORDA, esp=0, margem=(2, 0, 2, 0))
+    painel(os.path.join(rolagem, "vertical_hover_thumb.png"), 12, 64, 4,
+           POLEGAR, SEM_BORDA, esp=0, margem=(2, 0, 2, 0))

@@ -24,9 +24,9 @@ label cena_03_ligacao:
         _cena03_skip_bkp = config.allow_skipping
         config.allow_skipping = False
 
-        ## Cena 03 digita mais rápido que a 01 (24 cps vs 16).
+        ## Conversa cotidiana digita rápido (35 cps; a Cena 01 usa 24/30).
         _cena03_cps_bkp = preferences.text_cps
-        preferences.text_cps = 24
+        preferences.text_cps = 35
 
         _cena03_menu_bkp = _game_menu_screen
         _game_menu_screen = None
@@ -45,9 +45,9 @@ label cena_03_ligacao:
     play sound "audio/phone_ring.wav" loop
     window show
 
-    "...{w=1.5}{nw}" (slow_abortable=False, cps=24)
+    "...{w=1.5}{nw}" (slow_abortable=False, cps=35)
 
-    "Você recebe uma ligação antes de sair. Na tela está escrito: PAI.{w=2.5}{nw}" (slow_abortable=False, cps=24)
+    "Você recebe uma ligação antes de sair. Na tela está escrito: PAI.{w=2.5}{nw}" (slow_abortable=False, cps=35)
 
     menu:
         "Atender":
@@ -60,29 +60,29 @@ label .atender:
     stop sound
     window show
 
-    pai "Filho! Que bom que atendeu. Tava com saudade da sua voz.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pai "Filho! Que bom que atendeu. Tava com saudade da sua voz.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    jogador "Oi, pai. Tudo bem?{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    jogador "Oi, pai. Tudo bem?{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pai "Tudo, tudo. Bom, mais ou menos. Você sabe como é.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pai "Tudo, tudo. Bom, mais ou menos. Você sabe como é.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pai "Tava ligando pra saber como você tá se saindo por aí. Ainda... nessa escola.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pai "Tava ligando pra saber como você tá se saindo por aí. Ainda... nessa escola.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pai "Não vou mentir, filho. Ainda não entendo essa escolha sua. Magia não é caminho pra ninguém da nossa família.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pai "Não vou mentir, filho. Ainda não entendo essa escolha sua. Magia não é caminho pra ninguém da nossa família.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pensamento "E lá vamos nós.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pensamento "E lá vamos nós.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pai "Mas enfim... fiz o que tinha que fazer. Deixei você ir. Só quero que saiba que... me preocupo.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pai "Mas enfim... fiz o que tinha que fazer. Deixei você ir. Só quero que saiba que... me preocupo.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pai "Ah, e por falar nisso — vi sua mãe na praça outro dia. Tá lindíssima, como sempre.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pai "Ah, e por falar nisso — vi sua mãe na praça outro dia. Tá lindíssima, como sempre.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    jogador "Pai...{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    jogador "Pai...{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pai "Não é nada. Se cuida, tá?{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pai "Não é nada. Se cuida, tá?{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    jogador "Certo. Tchau, pai.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    jogador "Certo. Tchau, pai.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pensamento "Ele nunca vai entender. Mas pelo menos ainda liga.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pensamento "Ele nunca vai entender. Mas pelo menos ainda liga.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
     jump .fim
 
@@ -91,11 +91,11 @@ label .ignorar:
     stop sound fadeout 0.8
     window show
 
-    "O telefone para de tocar.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    "O telefone para de tocar.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    pensamento "Hoje não, pai. Hoje não.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    pensamento "Hoje não, pai. Hoje não.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
-    "Ele pega as coisas e sai.{w=3.0}{nw}" (slow_abortable=False, cps=24)
+    "Ele pega as coisas e sai.{w=3.0}{nw}" (slow_abortable=False, cps=35)
 
     jump .fim
 
