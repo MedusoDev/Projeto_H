@@ -6,23 +6,43 @@
 init python:
     import random
 
-    ## Caracteres usados no embaralhamento — mexe à vontade
-    _glitch_chars = "*&^%#@$!?/\\|<>~=+()0123456789ABCDEFabcdef"
+    ## Visual "nome censurado com interferência": na maior parte do tempo o
+    ## nome é um bloco estável (▓▓▓▓ = redigido/selado); a cada ~2.2s vem uma
+    ## rajada curta em que os blocos se corrompem em símbolos e a cor acende.
+    ## Os glifos são todos do DejaVuSans (que vem com o Ren'Py) — a fonte é
+    ## forçada abaixo pra não depender da fonte da GUI ter esses caracteres.
+    _glitch_simbolos = "▚▞▛▜▙▟░▒█╳╬┼∆∇∴≠"
 
-    def _scramble(n):
-        return "".join(random.choice(_glitch_chars) for _ in range(n))
-
-    ## Função do DynamicDisplayable: redesenha um texto embaralhado a cada tick.
-    ## n = quantos caracteres. O 0.06 no fim = velocidade do glitch (menor = mais rápido).
     ## Não passar size=None pro Text() — isso trava a resolução de estilo (o
     ## Text não consegue herdar um tamanho e quebra com AttributeError). Só
     ## inclui "size" nas propriedades quando um valor concreto for passado.
     def _glitch_render(st, at, n=7, color="#e02020", size=None):
-        properties = {"color": color, "bold": True}
+        ciclo = 2.2      # duração de um ciclo calmo+rajada
+        rajada_dur = 0.35
+        rajada = (st % ciclo) > (ciclo - rajada_dur)
+        tique = 0.05 if rajada else 0.18
+
+        ## Random determinístico por frame do efeito: mesmo st = mesmo
+        ## desenho (estável em rollback/redraw).
+        rng = random.Random(int(st / tique) * 9973 + n)
+
+        chars = []
+        for _ in range(n):
+            if rajada and rng.random() < 0.55:
+                chars.append(rng.choice(_glitch_simbolos))
+            elif rng.random() < 0.08:
+                chars.append(rng.choice("▒█"))
+            else:
+                chars.append("▓")
+
+        properties = {
+            "color": ("#ff4040" if rajada else color),
+            "bold": True,
+            "font": "DejaVuSans.ttf",
+        }
         if size is not None:
             properties["size"] = size
-        d = Text(_scramble(n), **properties)
-        return d, 0.06
+        return Text("".join(chars), **properties), tique
 
     ## Tag de texto {glitch=N} — insere um bloco glitch animado dentro de qualquer texto,
     ## inclusive dentro do NOME do personagem.

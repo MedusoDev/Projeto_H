@@ -7,6 +7,9 @@
 define jogador     = Character("[nome_jogador]", color="#e0e0ff", image="protagonista")
 define pensamento  = Character(None, what_italic=True, what_color="#b0b0c8")
 
+## Pai do protagonista — só voz (ligação na Cena 03).
+define pai = Character("Pai", color="#d8b060")
+
 ## Ser misterioso — contato na Cena 01 (Pesadelo). Sem sprite, só voz.
 ## Nome = bloco glitch de 7 chars animado (tag {glitch=N}, ver glitch.rpy).
 ## Falas em vermelho (what_color).

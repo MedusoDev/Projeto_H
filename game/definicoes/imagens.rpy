@@ -4,6 +4,8 @@ image bg sala_de_aula   = im.Scale("images/bg_sala_de_aula_vazia.png", 1280, 720
 image bg quarto_day     = im.Scale("images/background/room_full.png", 1280, 720)
 image bg quarto_no_fone = im.Scale("images/background/room_no_fone.png", 1280, 720)
 image bg quarto_no_fone_no_wand = im.Scale("images/background/room_no_fone_no_wand.png", 1280, 720)
+image bg quarto_box_open = im.Scale("images/background/room_no_fone_no_wand_box_open.png", 1280, 720)
+image bg quarto_box_open_no_jaleco = im.Scale("images/background/room_no_fone_no_wand_box_open_no_jaleco.png", 1280, 720)
 
 ## TODO: adicionar bg oceano_escuro para a Cena 01 (Pesadelo)
 

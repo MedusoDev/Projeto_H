@@ -25,20 +25,23 @@ define config.check_conflicting_properties = True
 ##
 ## As cores do texto na interface.
 
+## Paleta "clean" (HUD nova, tools/gerar_hud.py): painéis noturnos escuros
+## com acento periwinkle — mesma família de cor do céu do minigame.
+
 ## Uma cor de destaque usada em toda a interface para rotular e destacar o
 ## texto.
-define gui.accent_color = '#766249'
+define gui.accent_color = '#8fb4ff'
 
 ## A cor usada para um botão de texto quando ele não está selecionado nem passa
 ## o mouse.
-define gui.idle_color = '#888888'
+define gui.idle_color = '#8f93a2'
 
 ## A cor pequena é usada para texto pequeno, que precisa ser mais claro/escuro
 ## para obter o mesmo efeito.
-define gui.idle_small_color = '#aaaaaa'
+define gui.idle_small_color = '#a7abb8'
 
 ## A cor que é usada para botões e barras que passam pelo mouse.
-define gui.hover_color = '#a78b67'
+define gui.hover_color = '#c9d6ff'
 
 ## A cor usada em um botão de texto quando ele está selecionado, mas não
 ## focalizado. Um botão estará selecionado se for a tela atual ou o valor de
@@ -46,17 +49,17 @@ define gui.hover_color = '#a78b67'
 define gui.selected_color = '#ffffff'
 
 ## A cor usada para um botão de texto quando ele não pode ser selecionado.
-define gui.insensitive_color = '#8888887f'
+define gui.insensitive_color = '#8f93a27f'
 
 ## Cores usadas para as partes das barras que não estão preenchidas. Elas não
 ## são usadas diretamente, mas são usadas ao gerar novamente os arquivos de
 ## imagem de barra.
-define gui.muted_color = '#510000'
-define gui.hover_muted_color = '#7a0000'
+define gui.muted_color = '#232838'
+define gui.hover_muted_color = '#39415c'
 
 ## As cores usadas para o diálogo e o texto da opção de menu.
-define gui.text_color = '#ffffff'
-define gui.interface_text_color = '#ffffff'
+define gui.text_color = '#f2f3f7'
+define gui.interface_text_color = '#eef0f6'
 
 
 ## Fontes e tamanhos de fonte ##################################################
@@ -114,7 +117,7 @@ define gui.textbox_yalign = 1.0
 ## O posicionamento do nome do personagem que fala, em relação à caixa de texto.
 ## Pode ser um número inteiro de pixels a partir da esquerda ou do topo, ou 0,5
 ## para o centro.
-define gui.name_xpos = 240
+define gui.name_xpos = 150
 define gui.name_ypos = 0
 
 ## O alinhamento horizontal do nome do personagem. Pode ser 0,0 para alinhado à
@@ -128,21 +131,21 @@ define gui.namebox_height = 36
 
 ## As bordas da caixa que contém o nome do personagem, na ordem esquerda,
 ## superior, direita e inferior.
-define gui.namebox_borders = Borders(3, 3, 50, 3)
+define gui.namebox_borders = Borders(20, 2, 20, 2)
 
 ## Se for True, o plano de fundo da caixa de nome será lado a lado; se for
 ## False, o plano de fundo da caixa de nome será dimensionado.
-define gui.namebox_tile = True
+define gui.namebox_tile = False
 
 
 ## O posicionamento do diálogo em relação à caixa de texto. Esse pode ser um
 ## número inteiro de pixels em relação ao lado esquerdo ou superior da caixa de
 ## texto, ou 0,5 em relação ao centro.
-define gui.dialogue_xpos = 268
-define gui.dialogue_ypos = 50
+define gui.dialogue_xpos = 165
+define gui.dialogue_ypos = 52
 
 ## A largura máxima do texto da caixa de diálogo, em pixels.
-define gui.dialogue_width = 744
+define gui.dialogue_width = 950
 
 ## O alinhamento horizontal do texto da caixa de diálogo. Pode ser 0,0 para
 ## alinhado à esquerda, 0,5 para centralizado e 1,0 para alinhado à direita.
@@ -216,14 +219,14 @@ define gui.quick_button_text_selected_color = gui.accent_color
 
 define gui.choice_button_width = 790
 define gui.choice_button_height = None
-define gui.choice_button_tile = True
-define gui.choice_button_borders = Borders(100, 5, 100, 5)
+define gui.choice_button_tile = False
+define gui.choice_button_borders = Borders(100, 14, 100, 14)
 define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = "#cccccc"
+define gui.choice_button_text_idle_color = "#d8dbe4"
 define gui.choice_button_text_hover_color = "#ffffff"
-define gui.choice_button_text_insensitive_color = "#444444"
+define gui.choice_button_text_insensitive_color = "#5a5e6c"
 
 
 ## Botões de slot de arquivo ###################################################
@@ -296,7 +299,7 @@ define gui.main_menu_text_xalign = 1.0
 ## está presente.
 
 ## Quadros genéricos.
-define gui.frame_borders = Borders(4, 4, 4, 4)
+define gui.frame_borders = Borders(24, 24, 24, 24)
 
 ## O quadro que é usado como parte da tela de confirmação.
 define gui.confirm_frame_borders = Borders(40, 40, 40, 40)
@@ -308,7 +311,7 @@ define gui.skip_frame_borders = Borders(16, 5, 50, 5)
 define gui.notify_frame_borders = Borders(85, 85, 85, 85)
 
 ## Os planos de fundo dos quadros devem ser lado a lado?
-define gui.frame_tile = True
+define gui.frame_tile = False
 
 
 ## Barras, barras de rolagem e controles deslizantes ###########################

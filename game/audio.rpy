@@ -3,6 +3,9 @@ init -1 python:
     renpy.music.register_channel("ambience2", mixer="sfx", loop=True)
     renpy.music.register_channel("tictac", mixer="sfx", loop=True)
     renpy.music.register_channel("typing", mixer="sfx", loop=True)
+    ## Alarme do despertador: loop próprio pra atravessar a transição da
+    ## Cena 01 -> 02 e só parar quando o jogador manda (hotspot do relógio).
+    renpy.music.register_channel("alarme", mixer="sfx", loop=True)
 
     ## Blip de digitação — toca em loop enquanto o texto está digitando
     ## (letra por letra) e para quando a fala termina de aparecer.

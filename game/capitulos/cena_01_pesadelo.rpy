@@ -28,6 +28,73 @@
 ##   com o texto completo -> {nw} avança sozinho.
 ## ============================================================
 
+## ---- Visual provisório do fundo do mar (até ter o bg de verdade) ----
+## Oceano = cor chapada escura; bolhas = os PNGs de círculo/anel do
+## minigame, tingidos de azul, subindo em loop; sombra = silhueta escura
+## difusa que surge quando o "ser" começa a falar.
+
+image pesadelo_oceano = Solid("#04121e")
+
+image pesadelo_sombra = Transform(
+    "images/minigames/constelacao/circulo.png",
+    xysize=(420, 640), matrixcolor=TintMatrix("#000408"), alpha=0.85,
+)
+
+## Respiração lenta da sombra (o fade-in fica no próprio ATL).
+transform pesadelo_sombra_pose:
+    subpixel True
+    xalign 0.5 yalign 0.7 alpha 0.0
+    linear 5.0 alpha 1.0
+    block:
+        easein 3.5 zoom 1.06
+        easeout 3.5 zoom 1.0
+        repeat
+
+## Uma bolha: espera o atraso, sobe do rodapé até sair da tela balançando
+## de leve, some e recomeça.
+transform pesadelo_bolha(x0, dur, atraso, desvio):
+    subpixel True
+    xpos x0 ypos 770 xanchor 0.5 yanchor 0.5 alpha 0.0
+    pause atraso
+    block:
+        ypos 770 xoffset 0 alpha 0.0
+        parallel:
+            linear dur ypos -60
+        parallel:
+            linear 0.8 alpha 1.0
+            pause (dur - 1.6)
+            linear 0.8 alpha 0.0
+        parallel:
+            linear (dur / 4) xoffset desvio
+            linear (dur / 4) xoffset -desvio
+            linear (dur / 4) xoffset desvio
+            linear (dur / 4) xoffset 0
+        repeat
+
+init python:
+    import random as _random_c01
+
+    def _pesadelo_gerar_bolhas(qtd=16, seed=11):
+        rng = _random_c01.Random(seed)
+        bolhas = []
+        for _ in range(qtd):
+            x = rng.randint(30, 1250)
+            tamanho = rng.choice([6, 8, 10, 14, 18, 24])
+            duracao = round(rng.uniform(7.0, 16.0), 1)
+            atraso = round(rng.uniform(0.0, 10.0), 1)
+            desvio = rng.randint(10, 40)
+            bolhas.append((x, tamanho, duracao, atraso, desvio))
+        return bolhas
+
+define pesadelo_bolhas_lista = _pesadelo_gerar_bolhas()
+
+screen pesadelo_bolhas():
+    for (bx, tam, dur, atraso, desvio) in pesadelo_bolhas_lista:
+        ## Bolhas maiores são só o contorno (anel), as pequenas são cheias.
+        $ img_bolha = "images/minigames/constelacao/anel.png" if tam >= 12 else "images/minigames/constelacao/circulo.png"
+        add Transform(img_bolha, xysize=(tam, tam), matrixcolor=TintMatrix("#9fc8e8"), alpha=0.3) at pesadelo_bolha(bx, dur, atraso, desvio)
+
+
 label cena_01_pesadelo:
 
     python:
@@ -71,6 +138,12 @@ label cena_01_pesadelo:
     ## O ambiente começa a rolar e só aparece "..."
     pensamento "...{w=3.0}{nw}" (slow_abortable=False, cps=16)
 
+    ## "Aos poucos surge um oceano profundo" — cor + bolhas subindo
+    ## (placeholder até ter a arte do bg).
+    scene pesadelo_oceano
+    with Dissolve(3.0)
+    show screen pesadelo_bolhas
+
     pensamento "Não há mais nada a se fazer...{w=3.0}{nw}" (slow_abortable=False, cps=16)
 
     ## Tentáculos verdes surgem — efeito visual a implementar depois
@@ -80,6 +153,9 @@ label cena_01_pesadelo:
     ## Contato — um ser desconhecido tenta se comunicar. O jogador não vai
     ## se lembrar disso ao acordar (só do pesadelo em si).
     ## ====================================================================
+
+    ## A sombra misteriosa (o "ser") surge devagar no fundo.
+    show pesadelo_sombra at pesadelo_sombra_pose
 
     ser "Alô? Testando?... Sempre erro essa magia maldita...{w=3.0}{nw}" (slow_abortable=False, cps=16)
 
@@ -99,13 +175,24 @@ label cena_01_pesadelo:
     ser_glitch "Eu sou {glitch=10}...{w=3.0}{nw}" (slow_abortable=False, cps=16)
 
     stop tictac fadeout 0.2
-    play sound "audio/clock_alarm_only.wav"
+    ## Em loop: o alarme atravessa a transição e continua na Cena 02 até o
+    ## jogador mandar o despertador parar (hotspot do relógio).
+    play alarme "audio/clock_alarm_only.wav"
+
+    ## O toque de verdade começa 2.8s dentro do áudio do alarme. O ambiente
+    ## da cena corta exatamente nesse instante — a Cena 02 (por enquanto)
+    ## não tem som ambiente próprio, então daqui pra frente é só o alarme.
+    $ renpy.pause(2.8, hard=True)
+    stop ambience fadeout 0.6
+    stop ambience2 fadeout 0.6
 
     ## Luz pulsa no centro e corta a cena — o contato é interrompido antes
     ## de terminar a frase. O alarme continua tocando por cima da
     ## transição (emenda com o acordar na cena 02).
     window hide
     window auto
+
+    hide screen pesadelo_bolhas
 
     scene black
     with fade

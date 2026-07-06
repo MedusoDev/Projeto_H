@@ -242,26 +242,22 @@ screen quick_menu():
 
     if quick_menu and not renpy.get_screen('choice'):
 
+        ## HUD clean: botões de texto discretos no rodapé, no lugar do
+        ## imagemap de moedas do template antigo.
         hbox:
             style_prefix "quick"
 
             xalign 0.5
             yalign 1.0
-            imagemap:
-                ground "gui/textbox_ground.png"
-                idle "gui/textbox_ground.png"
-                hover "gui/textbox_hover.png"
-                selected_hover "gui/textbox_selected_hover.png"
-                selected_idle "gui/textbox_hover.png"
+            spacing 18
 
-                hotspot (871, 188, 35, 35) action Skip() alternate Skip(fast=True, confirm=True)
-                hotspot (928, 188, 35, 35) action Preference("auto-forward", "toggle")
-                hotspot (983, 188, 35, 35) action Rollback()
-
-                hotspot (345, 188, 35, 35) action ShowMenu('history')
-                hotspot (237, 188, 35, 35) action ShowMenu('save')
-                hotspot (290, 188, 35, 35) action ShowMenu('load')
-                hotspot (398, 188, 35, 35) action ShowMenu('preferences')
+            textbutton _("Voltar") action Rollback()
+            textbutton _("Histórico") action ShowMenu('history')
+            textbutton _("Pular") action Skip() alternate Skip(fast=True, confirm=True)
+            textbutton _("Auto") action Preference("auto-forward", "toggle")
+            textbutton _("Salvar") action ShowMenu('save')
+            textbutton _("Carregar") action ShowMenu('load')
+            textbutton _("Opções") action ShowMenu('preferences')
 
 
 ## Esse código garante que a tela quick_menu seja exibida no jogo, sempre que o
